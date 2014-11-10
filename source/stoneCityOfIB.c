@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "azathoth.h"
-#include "bones.h"
+#include "HeadRoom/azathoth.h"
+#include "HeadRoom/bones.h"
 
 
 int main(void) {

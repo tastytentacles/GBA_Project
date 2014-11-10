@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include "shoggoth.h"
+#include "HeadRoom/shoggoth.h"
 
 
 extern unsigned int slashRound(float q);
