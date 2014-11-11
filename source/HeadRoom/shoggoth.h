@@ -29,6 +29,7 @@ struct gen_obj {
 	point_2D		_pos;
 	block_2D		_box;
 	int 			_sprite_ID;
+	int				_sprite_size;
 	int				_pointer;
 	void			(*_dave)(gen_obj *);
 

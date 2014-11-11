@@ -18,10 +18,14 @@ unsigned int slashRound(float q) {
 
 void defineSpriteSpace() {
 	extern unsigned int omegaSprite[4096];
-	unsigned int* spritePoint = (unsigned int*) 0x0600C000;
+	unsigned int* spritePoint = (unsigned int*) 0x06000000;
 	int n;
-	for (n = 0; n < 4096; n++) {
+	for (n = 0; n < 2048; n++) {
 		spritePoint[n] = omegaSprite[n];
+	}
+	spritePoint = (unsigned int*) 0x06010000;
+	for (n = 0; n < 2048; n++) {
+		spritePoint[n] = omegaSprite[n + 2048];
 	}
 }
 
@@ -64,17 +68,16 @@ void ibRise() {
 	unsigned short* grayScale = (unsigned short*) 0x05000002;
 	grayScale[0] = RGB5(0, 0, 0);
 	grayScale[1] = RGB5(31, 0, 0);
-	grayScale[2] = RGB5(0, 8, 0);
-	grayScale[3] = RGB5(0, 31, 0);
-	grayScale[4] = RGB5(21, 21, 21);
-	grayScale[5] = RGB5(0, 23, 31);
-	grayScale[6] = RGB5(10, 0, 10);
-	grayScale[7] = RGB5(0, 10, 20);
+	grayScale[2] = RGB5(8, 31, 8);
+	grayScale[3] = RGB5(23, 31, 0);
+	grayScale[4] = RGB5(10, 18, 31);
 
 	unsigned short* sp = (unsigned short*) 0x05000200;
-	sp[1] = RGB5(31, 31, 31);
-	sp[2] = RGB5(31, 4, 4);
-	sp[3] = RGB5(31, 20, 20);
+	sp[1] = RGB5(0, 0, 0);
+	sp[2] = RGB5(31, 0, 0);
+	sp[3] = RGB5(8, 31, 8);
+	sp[4] = RGB5(31, 20, 0);
+	sp[5] = RGB5(10, 18, 31);
 	sp = NULL;
 	free(sp);
 

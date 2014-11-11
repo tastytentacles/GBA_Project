@@ -10,20 +10,28 @@
 
 
 gen_obj infiniteVoid[64];
-void addGenObject(int tX, int tY, int tSprite, int tIndex) {
+void addGenObject(int tX, int tY, int tSprite, int tSSize, int tIndex) {
 	gen_obj voidObj = {
 		._pos = {
 			._x = tX,
 			._y = tY
 		},
 		._sprite_ID = tSprite,
+		._sprite_size = tSSize,
 		._pointer = 0x07000000 + (8 * tIndex)
 	};
 
 	infiniteVoid[tIndex] = voidObj;
 }
 
-void addBehaviour(void (*_pass_in_function), int tIndex) {
+void addBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
+	infiniteVoid[tIndex]._box._x = tX;
+	infiniteVoid[tIndex]._box._y = tY;
+	infiniteVoid[tIndex]._box._width = tWidth;
+	infiniteVoid[tIndex]._box._height = tHeight;
+}
+
+void addBehaviour(int tIndex, void (*_pass_in_function)) {
 	infiniteVoid[tIndex]._dave = _pass_in_function;
 }
 
@@ -41,11 +49,9 @@ void clearTheDead() {
 
 extern void player_b(gen_obj* self);
 void firstScreem() {
-	addGenObject(8, 8, 1, 0);
-	addGenObject(16, 32, 1, 1);
-	addGenObject(32, 32, 1, 2);
-
-	addBehaviour(player_b, 0);
+	addGenObject(8, 8, 1, 1, 0);
+	addBehaviour(0, player_b);
+	addBox(0, 0, 0, 16, 16);
 }
 
 void tentacle() {
@@ -56,7 +62,7 @@ void tentacle() {
 		if (infiniteVoid[n]._pointer != 0) {
 			objA = (unsigned char*) infiniteVoid[n]._pointer;
 			objA[0] = ((infiniteVoid[n]._pos._y << 0));
-			objA[1] = ((infiniteVoid[n]._pos._x << 0));
+			objA[1] = ((infiniteVoid[n]._pos._x << 0) | (infiniteVoid[n]._sprite_size << 14));
 			objA[2] = ((infiniteVoid[n]._sprite_ID << 0));
 			if (infiniteVoid[n]._dave != NULL) {
 				infiniteVoid[n]._dave(&infiniteVoid[n]);
@@ -79,6 +85,7 @@ void tentacle() {
 	// 	._width = 10,
 	// 	._height = 10
 	// },
-	// ._pointer = 0x07000000 + 8,
-	// ._sprite_ID = 1
+	// ._sprite_ID = 1,
+	// ._sprite_size = 2,
+	// ._pointer = 0x07000000 + 8
 // };
