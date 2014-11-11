@@ -67,17 +67,21 @@ void ibRise() {
 
 	unsigned short* grayScale = (unsigned short*) 0x05000002;
 	grayScale[0] = RGB5(0, 0, 0);
-	grayScale[1] = RGB5(31, 0, 0);
-	grayScale[2] = RGB5(8, 31, 8);
-	grayScale[3] = RGB5(23, 31, 0);
-	grayScale[4] = RGB5(10, 18, 31);
+	grayScale[1] = RGB5(10, 12, 10);
+	grayScale[2] = RGB5(7, 8, 6);
+	grayScale[3] = RGB5(4, 5, 4);
+	grayScale[4] = RGB5(2, 3, 2);
+
+	grayScale[5] = RGB5(8, 8, 10);
+	grayScale[6] = RGB5(6, 6, 7);
+	grayScale[7] = RGB5(4, 4, 4);
+	grayScale[8] = RGB5(3, 3, 5);
 
 	unsigned short* sp = (unsigned short*) 0x05000200;
-	sp[1] = RGB5(0, 0, 0);
-	sp[2] = RGB5(31, 0, 0);
-	sp[3] = RGB5(8, 31, 8);
-	sp[4] = RGB5(31, 20, 0);
-	sp[5] = RGB5(10, 18, 31);
+	sp[2] = RGB5(10, 12, 10);
+	sp[3] = RGB5(7, 8, 6);
+	sp[4] = RGB5(4, 5, 4);
+	sp[5] = RGB5(2, 3, 2);
 	sp = NULL;
 	free(sp);
 

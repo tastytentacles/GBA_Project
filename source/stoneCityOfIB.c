@@ -16,34 +16,21 @@ int main(void) {
 	irqEnable(IRQ_VBLANK);
 	ibRise();
 
-	setMapBox(5, 5, 5, 5, 31);
-	setMapBox(6, 6, 3, 3, 0);
+	setMapBox(10, 5, 10, 10, 1);
+	setMapPoint(10, 5, 3);
+	setMapPoint(19, 5, 5);
+	setMapPoint(10, 14, 67);
+	setMapPoint(19, 14, 69);
 
-	setMapBox(16, 9, 7, 7, 31);
-	setMapBox(17, 10, 5, 5, 0);
-
-	int loop_time = 0;
-	int loop_step = 0;
-	unsigned short* loop_point = (unsigned short*) 0x05000000;
-	extern unsigned short rainbow[7];
+	setMapBox(11, 5, 8, 1, 4);
+	setMapBox(10, 6, 1, 8, 35);
+	setMapBox(11, 14, 8, 1, 68);
+	setMapBox(19, 6, 1, 8, 37);
 
 	firstScreem();
 
 	while (1) {
-		loop_time += 1;
-
-		if (loop_time > 4) {
-			loop_step += 1;
-			loop_time = 0;
-		}
-
-		if (loop_step > 6) {
-			loop_step = 0;
-		}
-
 		tentacle();
-
-		loop_point[0] = rainbow[loop_step];
 
 		VBlankIntrWait();
 	}
