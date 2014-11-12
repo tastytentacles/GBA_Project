@@ -48,13 +48,13 @@ void clearTheDead() {
 
 
 extern void player_b(gen_obj* self);
-void firstScreem() {
+void stage2() {
 	addGenObject(100, 100, 1, 1, 0);
 	addBehaviour(0, player_b);
 	addBox(0, 0, 0, 16, 16);
 }
 
-void tentacle() {
+void obj_loop() {
 	unsigned short* objA;
 
 	int n;

@@ -50,7 +50,7 @@ void setMapBox(int _x, int _y, int _width, int _height, int _set) {
 
 
 
-void ibRise() {
+void stage1() {
 	unsigned short* cp1 = (unsigned short*) 0x4000000;
 	unsigned short* cp2 = (unsigned short*) 0x4000004;
 	unsigned short* cp3 = (unsigned short*) 0x4000008;

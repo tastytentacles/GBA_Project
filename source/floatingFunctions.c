@@ -68,10 +68,8 @@ void player_b(gen_obj* self) {
 	}
 
 	scanKeys();
-	unsigned int _key_down = keysDown();
-	unsigned int _key_up = keysUp();
 
-	switch (_key_down) {
+	switch (keysDown()) {
 		case KEY_UP :
 			_up = 1;
 			break;
@@ -86,7 +84,7 @@ void player_b(gen_obj* self) {
 			break;
 	}
 
-	switch (_key_up) {
+	switch (keysUp()) {
 		case KEY_UP :
 			_up = 0;
 			break;

@@ -7,14 +7,15 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "HeadRoom/azathoth.h"
+#include "HeadRoom/objHandeler.h"
 #include "HeadRoom/bones.h"
 
 
 int main(void) {
 	irqInit();
 	irqEnable(IRQ_VBLANK);
-	ibRise();
+	
+	stage1();
 
 	setMapBox(10, 5, 10, 10, 1);
 	setMapPoint(10, 5, 3);
@@ -27,10 +28,10 @@ int main(void) {
 	setMapBox(11, 14, 8, 1, 68);
 	setMapBox(19, 6, 1, 8, 37);
 
-	firstScreem();
+	stage2();
 
 	while (1) {
-		tentacle();
+		obj_loop();
 
 		VBlankIntrWait();
 	}
