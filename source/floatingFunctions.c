@@ -68,36 +68,26 @@ void player_b(gen_obj* self) {
 	}
 
 	scanKeys();
+	u16 _keyDown = keysDown();
+	u16 _keyUp = keysUp();
 
-	switch (keysDown()) {
-		case KEY_UP :
-			_up = 1;
-			break;
-		case KEY_DOWN :
-			_down = 1;
-			break;
-		case KEY_LEFT :
-			_left = 1;
-			break;
-		case KEY_RIGHT :
-			_right = 1;
-			break;
-	}
+	if ((_keyDown >> 6) == 1)
+		{ _up = 1; }
+	if ((_keyDown >> 7) == 1)
+		{ _down = 1; }
+	if ((_keyDown >> 5) == 1)
+		{ _left = 1; }
+	if ((_keyDown >> 4) == 1)
+		{ _right = 1; }
 
-	switch (keysUp()) {
-		case KEY_UP :
-			_up = 0;
-			break;
-		case KEY_DOWN :
-			_down = 0;
-			break;
-		case KEY_LEFT :
-			_left = 0;
-			break;
-		case KEY_RIGHT :
-			_right = 0;
-			break;
-	}
+	if ((_keyUp >> 6) == 1)
+		{ _up = 0; }
+	if ((_keyUp >> 7) == 1)
+		{ _down = 0; }
+	if ((_keyUp >> 5) == 1)
+		{ _left = 0; }
+	if ((_keyUp >> 4) == 1)
+		{ _right = 0; }
 
 	_speed_x += (_right - _left) * _speed;
 	_speed_y += (_down - _up) * _speed;
