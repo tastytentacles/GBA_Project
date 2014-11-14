@@ -9,72 +9,106 @@
 #include "shoggoth.h"
 
 
-gen_obj infiniteVoid[64];
-void addGenObject(int tX, int tY, int tSprite, int tSSize, int tIndex) {
-	gen_obj voidObj = {
-		._pos = {
-			._x = tX,
-			._y = tY
+agent handeler[16];
+void addAgent(int tIndex, int tX, int tY, int tSprite, int tSSize) {
+	agent _temp = {
+		._self = {
+			._pos = {
+				._x = tX,
+				._y = tY
+			},
+			._sprite_ID = tSprite,
+			._sprite_size = tSSize,
+			._pointer = 0x07000000 + (8 * tIndex)
 		},
-		._sprite_ID = tSprite,
-		._sprite_size = tSSize,
-		._pointer = 0x07000000 + (8 * tIndex)
+		._up = 0,
+		._down = 0,
+		._left = 0,
+		._right = 0,
+		._x_r = tX,
+		._y_r = tY
 	};
-
-	infiniteVoid[tIndex] = voidObj;
+	handeler[tIndex] = _temp;
 }
 
-void addBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
-	infiniteVoid[tIndex]._box._x = tX;
-	infiniteVoid[tIndex]._box._y = tY;
-	infiniteVoid[tIndex]._box._width = tWidth;
-	infiniteVoid[tIndex]._box._height = tHeight;
+void addAgentScript(int tIndex, void (*_pass_in_script))
+	{ handeler[tIndex]._script = _pass_in_script; }
+
+void setAgentBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
+	handeler[tIndex]._self._box._x = tX;
+	handeler[tIndex]._self._box._y = tY;
+	handeler[tIndex]._self._box._width = tWidth;
+	handeler[tIndex]._self._box._height = tHeight;
 }
 
-void addBehaviour(int tIndex, void (*_pass_in_function)) {
-	infiniteVoid[tIndex]._dave = _pass_in_function;
-}
-
-void deleteGenObject(int tIndex){
-	gen_obj voidObj;
-	infiniteVoid[tIndex] = voidObj;
-}
-
-void clearTheDead() {
-	int n;
-	for (n = 0; n < 64; n++) {
-		if (infiniteVoid[n]._blackSpot) { deleteGenObject(n); }}
-}
-
-
-extern void player_b(gen_obj* self);
+// extern void player_b(obj* self);
+extern void player_script(agent* self);
 void stage2() {
-	addGenObject(100, 100, 1, 1, 0);
-	addBehaviour(0, player_b);
-	addBox(0, 0, 0, 16, 16);
+	addAgent(0, 112, 75, 1, 1);
+	addAgentScript(0, player_script);
+
+	// addGenObject(112, 60, 1, 1, 0);
+	// addBehaviour(0, player_b);
+	// addBox(0, 10, 0, 16, 16);
 }
+
+// obj infiniteVoid[64];
+// void addGenObject(int tX, int tY, int tSprite, int tSSize, int tIndex) {
+// 	obj voidObj = {
+// 		._pos = {
+// 			._x = tX,
+// 			._y = tY
+// 		},
+// 		._sprite_ID = tSprite,
+// 		._sprite_size = tSSize,
+// 		._pointer = 0x07000000 + (8 * tIndex)
+// 	};
+
+// 	infiniteVoid[tIndex] = voidObj;
+// }
+
+// void addBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
+// 	infiniteVoid[tIndex]._box._x = tX;
+// 	infiniteVoid[tIndex]._box._y = tY;
+// 	infiniteVoid[tIndex]._box._width = tWidth;
+// 	infiniteVoid[tIndex]._box._height = tHeight;
+// }
+
+// void addBehaviour(int tIndex, void (*_pass_in_function)) {
+// 	infiniteVoid[tIndex]._dave = _pass_in_function;
+// }
+
+// void deleteGenObject(int tIndex) {
+// 	obj voidObj;
+// 	infiniteVoid[tIndex] = voidObj;
+// }
+
+// void clearTheDead() {
+// 	int n;
+// 	for (n = 0; n < 64; n++) {
+// 		if (infiniteVoid[n]._blackSpot) { deleteGenObject(n); }}
+// }
 
 void obj_loop() {
-	unsigned short* objA;
+	unsigned short* _hand;
 
 	int n;
-	for (n = 0; n < 64; n++) {
-		if (infiniteVoid[n]._pointer != 0) {
-			objA = (unsigned char*) infiniteVoid[n]._pointer;
-			objA[0] = ((infiniteVoid[n]._pos._y << 0));
-			objA[1] = ((infiniteVoid[n]._pos._x << 0) | (infiniteVoid[n]._sprite_size << 14));
-			objA[2] = ((infiniteVoid[n]._sprite_ID << 0));
-			if (infiniteVoid[n]._dave != NULL) {
-				infiniteVoid[n]._dave(&infiniteVoid[n]);
-			}
+	for (n = 0; n < 16; n++) {
+		if (handeler[n]._self._pointer != 0) {
+			_hand = (unsigned char*) handeler[n]._self._pointer;
+			_hand[0] = ((handeler[n]._self._pos._y << 0));
+			_hand[1] = ((handeler[n]._self._pos._x << 0) | (handeler[n]._self._sprite_size << 14));
+			_hand[2] = ((handeler[n]._self._sprite_ID << 0));
+			if (handeler[n]._script != NULL)
+				{ handeler[n]._script(&handeler[n]); }
 		}
 	}
 
-	objA = NULL;
-	free(objA);
+	_hand = NULL;
+	free(_hand);
 }
 
-// gen_obj obj = {
+// obj obj = {
 	// ._pos = {
 		// ._x = 32,
 		// ._y = 16
