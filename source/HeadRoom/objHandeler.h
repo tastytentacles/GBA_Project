@@ -49,40 +49,10 @@ void stage2() {
 	setAgentBox(0, 0, 0, 16, 16);
 	addAgentScript(0, player_script);
 
-	addAgent(1, 60, 60, 1, 1);
+	addAgent(1, 60, 60, 5, 1);
 	setAgentBox(1, 0, 0, 16, 16);
 	addAgentScript(1, dave_script);
-
-	// addGenObject(112, 60, 1, 1, 0);
-	// addBehaviour(0, player_b);
-	// addBox(0, 10, 0, 16, 16);
 }
-
-// obj infiniteVoid[64];
-// void addGenObject(int tX, int tY, int tSprite, int tSSize, int tIndex) {
-// 	obj voidObj = {
-// 		._pos = {
-// 			._x = tX,
-// 			._y = tY
-// 		},
-// 		._sprite_ID = tSprite,
-// 		._sprite_size = tSSize,
-// 		._pointer = 0x07000000 + (8 * tIndex)
-// 	};
-
-// 	infiniteVoid[tIndex] = voidObj;
-// }
-
-// void addBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
-// 	infiniteVoid[tIndex]._box._x = tX;
-// 	infiniteVoid[tIndex]._box._y = tY;
-// 	infiniteVoid[tIndex]._box._width = tWidth;
-// 	infiniteVoid[tIndex]._box._height = tHeight;
-// }
-
-// void addBehaviour(int tIndex, void (*_pass_in_function)) {
-// 	infiniteVoid[tIndex]._dave = _pass_in_function;
-// }
 
 // void deleteGenObject(int tIndex) {
 // 	obj voidObj;

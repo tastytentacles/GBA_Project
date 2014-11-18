@@ -98,5 +98,5 @@ void player_script(agent* self) {
 
 
 void dave_script(agent* self) {
-	if ()
+	// if ()
 }

@@ -82,6 +82,9 @@ void stage1() {
 	sp[3] = RGB5(7, 8, 6);
 	sp[4] = RGB5(4, 5, 4);
 	sp[5] = RGB5(2, 3, 2);
+	sp[11] = RGB5(16, 16, 16);
+	sp[12] = RGB5(12, 12, 12);
+	sp[13] = RGB5(4, 4, 4);
 	sp = NULL;
 	free(sp);
 
