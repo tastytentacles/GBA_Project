@@ -43,9 +43,15 @@ void setAgentBox(int tIndex, int tX, int tY, int tWidth, int tHeight) {
 
 // extern void player_b(obj* self);
 extern void player_script(agent* self);
+extern void dave_script(agent* self);
 void stage2() {
 	addAgent(0, 112, 75, 1, 1);
+	setAgentBox(0, 0, 0, 16, 16);
 	addAgentScript(0, player_script);
+
+	addAgent(1, 60, 60, 1, 1);
+	setAgentBox(1, 0, 0, 16, 16);
+	addAgentScript(1, dave_script);
 
 	// addGenObject(112, 60, 1, 1, 0);
 	// addBehaviour(0, player_b);
