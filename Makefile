@@ -19,7 +19,7 @@ include $(DEVKITARM)/gba_rules
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source
-DATA		:=	
+DATA		:=
 INCLUDES	:=
 
 #---------------------------------------------------------------------------------
@@ -109,6 +109,7 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@exec mgba-qt $(OUTPUT).gba
 
 all	: $(BUILD)
 #---------------------------------------------------------------------------------
