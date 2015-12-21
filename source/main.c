@@ -1,38 +1,49 @@
-#include <gba_console.h>
-#include <gba_video.h>
-#include <gba_interrupt.h>
-#include <gba_systemcalls.h>
+#include <gba.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
-// #include "HeadRoom/objHandeler.h"
-// #include "HeadRoom/bones.h"
+void code_init() {
+	unsigned short* videopointer = (unsigned short*) 0x4000000;
+	videopointer[0] = ((1 << 8));
 
+	unsigned short* bg0pointer = (unsigned short*) 0x4000008;
+
+	unsigned short* palatte = (unsigned short*) 0x05000000;
+	palatte[0] = RGB5(1, 1, 1);
+
+	videopointer = NULL; free(videopointer);
+	bg0pointer = NULL; free(bg0pointer);
+	palatte = NULL; free(palatte);
+}
+
+void AgbMain(void){
+	//Play a sound on channel 1
+
+	//turn on sound circuit
+	REG_SOUNDCNT_X = 0x80;
+	//full volume, enable sound 1 to left and right
+	REG_SOUNDCNT_L = 0x1177;
+	// Overall output ratio - Full
+	REG_SOUNDCNT_H = 2;
+
+	REG_SOUND1CNT_L = 0x0056; //sweep shifts=6, increment, sweep time=39.1ms
+	REG_SOUND1CNT_H = 0xf780; //duty=50%,envelope decrement
+	REG_SOUND1CNT_X = 0x8400; //frequency=0x0400, loop mode
+
+	REG_SOUND2CNT_L = 0x0056;
+}
 
 int main(void) {
 	irqInit();
 	irqEnable(IRQ_VBLANK);
+	code_init();
 
-	// stage1();
-	//
-	// setMapBox(10, 5, 10, 10, 1);
-	// setMapPoint(10, 5, 3);
-	// setMapPoint(19, 5, 5);
-	// setMapPoint(10, 14, 67);
-	// setMapPoint(19, 14, 69);
-	//
-	// setMapBox(11, 5, 8, 1, 4);
-	// setMapBox(10, 6, 1, 8, 35);
-	// setMapBox(11, 14, 8, 1, 68);
-	// setMapBox(19, 6, 1, 8, 37);
-	//
-	// stage2();
+	AgbMain();
+
+	// SoundDriverInit();
+	// SoundDriverMode();
 
 	while (1) {
-		// obj_loop();
-
 		VBlankIntrWait();
+		// SoundDriverVsync();
 	}
 }
